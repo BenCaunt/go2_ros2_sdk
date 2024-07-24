@@ -34,7 +34,7 @@ from launch.launch_description_sources import FrontendLaunchDescriptionSource
 def generate_launch_description():
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
-    no_rviz2 = LaunchConfiguration('no_rviz2', default='false')
+    # no_rviz2 = LaunchConfiguration('no_rviz2', default='false')
     
     robot_token = os.getenv('ROBOT_TOKEN','')
     robot_ip = os.getenv('ROBOT_IP', '')
@@ -45,10 +45,10 @@ def generate_launch_description():
 
     conn_type = os.getenv('CONN_TYPE', 'webrtc')
 
-    rviz_config = "multi_robot_conf.rviz"
+    # rviz_config = "multi_robot_conf.rviz"
     
-    if conn_type == 'cyclonedds':
-        rviz_config = "cyclonedds_config.rviz"
+    # if conn_type == 'cyclonedds':
+    #     rviz_config = "cyclonedds_config.rviz"
 
     urdf_file_name = 'multi_go2.urdf'
     urdf = os.path.join(
@@ -140,14 +140,14 @@ def generate_launch_description():
             executable='lidar_to_pointcloud',
             parameters=[{'robot_ip_lst': robot_ip_lst, 'map_name': map_name, 'map_save': save_map}],
         ),
-        Node(
-            package='rviz2',
-            namespace='',
-            executable='rviz2',
-            condition=UnlessCondition(no_rviz2),
-            name='rviz2',
-            arguments=['-d' + os.path.join(get_package_share_directory('go2_robot_sdk'), 'config', rviz_config)]
-        ),
+        # Node(
+        #     package='rviz2',
+        #     namespace='',
+        #     executable='rviz2',
+        #     condition=UnlessCondition(no_rviz2),
+        #     name='rviz2',
+        #     arguments=['-d' + os.path.join(get_package_share_directory('go2_robot_sdk'), 'config', rviz_config)]
+        # ),
         
         Node(
             package='joy',
